@@ -1,4 +1,4 @@
-## Cyberminer Search Engin
+## Cyberminer Search Engine
 
 As system/software engineers of a renowned company, your team is to develop a simple web search engine, here called Cyberminer. For this project, you will use an Object-Oriented Analysis and Design, and build a prototype using an Object-Oriented Program
 
