@@ -17,8 +17,7 @@ Cyberminer shall allow for:
 - Filtering out symbols that are not meaningful, according to the user configuration.
 
 ### Group Members
-- Jacob Yonchak
 - Drew Pulliam
 - Ryan Allen
 - Moinali Momin
-
+- Devansh Shah
