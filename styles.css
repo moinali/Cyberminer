@@ -9,7 +9,7 @@ input {
 }
 
 .user-cards {
-  display: grid;
+  display: block;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: .25rem;
   margin-top: 1rem;
