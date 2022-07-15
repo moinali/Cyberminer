@@ -17,8 +17,11 @@ searchBtn.onclick = function (){
     if(fileData[i].title.includes(query.value) 
       || fileData[i].description.includes(query.value)) {
         //create link like so
+        //<p>This text is normal.</p>
         //<a href="https://www.w3schools.com/html/">Visit our HTML Tutorial</a>
-        result = result +"<a href=\""+ fileData[i].link +"\">"+ fileData[i].title +"</a><br>";
+        result = result + "<p>"+ fileData[i].pubDate.slice(0,-12) +"</p>"; 
+        result = result +"<a href=\""+ fileData[i].link +"\">"+ fileData[i].title +"</a>";
+        result = result +"<p>"+ fileData[i].description +"...</p><br><br>";
       }
   }
   console.log(result.length);
