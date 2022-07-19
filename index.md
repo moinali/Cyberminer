@@ -1,8 +1,8 @@
-## Cyberminer Search Engine
+# Cyberminer Search Engine
 
 As system/software engineers of a renowned company, your team is to develop a simple web search engine, here called Cyberminer. For this project, you will use an Object-Oriented Analysis and Design, and build a prototype using an Object-Oriented Program
 
-### Specification
+## Specification
 
 Cyberminer shall accept a list of keywords and return a list of URLs whose descriptions contain any of the given keywords.
 Cyberminer shall allow for:
@@ -16,7 +16,7 @@ Cyberminer shall allow for:
 - Autofill, while correcting typographical errors,
 - Filtering out symbols that are not meaningful, according to the user configuration.
 
-# Group Members
+### Group Members
 - Drew Pulliam
 - Ryan Allen
 - Moinali Momin
