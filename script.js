@@ -3,46 +3,79 @@ let searchBtn = document.querySelector('.searchBtn');
 var fileData = "";
 var result = "";
 
+let isAnd = false;
+let isOr = false;
+let isNot = false;
 
-fetch("https://moinali.github.io/Cyberminer/index.json")
+
+  fetch("https://moinali.github.io/Cyberminer/index.json")
   .then(res => res.json())
   .then(data => {
     fileData=data;
   })
 
-
-searchBtn.onclick = function (){
+  searchBtn.onclick = function (){
   result = "";
-  console.log(query.value);
-  for (let i = 0; i < fileData.length; i++) {
-    if(fileData[i].title.includes(query.value) 
-      || fileData[i].description.includes(query.value)) {
-        //create link like so
-        //<p>This text is normal.</p>
-        //<a href="https://www.w3schools.com/html/">Visit our HTML Tutorial</a>
+  queryDecypher();
+  }
 
-        //result = result + "<p>"+ boldQuery() +"</p>"; 
-        //result = result + "<p class="+"\"text-muted\">"+ fileData[i].link +"</p>"; 
-        result = result + "<p style=\"color:#838383\">"+ fileData[i].link +"</p>"; 
-        result = result +"<a href=\""+ fileData[i].link +"\">"+  boldQuery(fileData[i].title) +"</a>";
-        result = result +"<p>"+ fileData[i].pubDate.slice(0,-12) +" — " +boldQuery(fileData[i].description) +"...</p><br><br>";
+  function getResults(key){
+    console.log(key);
+    //queryDecypher();
+    for (let i = 0; i < fileData.length; i++) {
+      if(fileData[i].title.includes(key) 
+        || fileData[i].description.includes(key)) {
+          result = result + "<p style=\"color:#838383\">"+ fileData[i].link +"</p>"; 
+          result = result +"<a href=\""+ fileData[i].link +"\">"+  boldQuery(fileData[i].title, key) +"</a>";
+          result = result +"<p>"+ fileData[i].pubDate.slice(0,-12) +" — " +boldQuery(fileData[i].description, key) +"...</p><br><br>";
+        }
+    }
+    console.log(result.length);
+    if(result.length==0){
+      console.log("here");
+      result = "No results found for " + key;
+    }
+    document.getElementById("content").innerHTML = result;
+  }
+
+  function queryDecypher(){
+    var q = query.value;
+    var qArr = [];
+ 
+    if (q.includes("AND") ) {
+      qArr = q.split(' AND ');
+      console.log("found the AND");
+
+    } else if (q.includes("OR")){ //parse string with OR and list result
+      qArr = q.split(' OR ');
+      console.log("found the OR");
+
+      console.log(qArr);
+      var arrayLength = qArr.length;
+      console.log("array length:" + arrayLength);
+      for (var i = 0; i < arrayLength; i++) {
+        console.log(qArr[i]);
+        getResults(qArr[i]);
       }
-  }
-  console.log(result.length);
-  if(result.length==0){
-    console.log("here");
-    result = "No results found for " + query.value;
-  }
-  document.getElementById("content").innerHTML = result;
-  }
 
-  function boldQuery(line){
+    } else if(q.includes("NOT")){ 
+      qArr = q.split(' NOT ');
+      console.log("found the NOT");
+
+    } else {//single word query
+      qArr[0] = q;
+      getResults(qArr[0]);
+    }
+      
+  }
+  
+  function boldQuery(line, key){
     var lineToWords = line.split(" ");
     var formed = "";
     //var str = "\\b"+ query.value +"\\b";
     //console.log(str);
     for(var j = 0; j<lineToWords.length; j++){
-      if(new RegExp("\\b"+query.value+"\\b").test(lineToWords[j])){
+      if(new RegExp("\\b"+key+"\\b").test(lineToWords[j])){
       //if(query.value.includes(lineToWords[j])){       
         formed += "<b>"+lineToWords[j]+"</b>"+" ";
       }else{
@@ -51,6 +84,12 @@ searchBtn.onclick = function (){
     }
     return formed;
   }
+
+  function isValidURL(string) {
+    var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+  };
+
 
 
 
